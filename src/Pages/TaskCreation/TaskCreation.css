@@ -1,0 +1,34 @@
+.taskCreationTag .rs-tag-text{
+    min-height: 20px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 2.5px 5px;
+}
+.chart-statistics .taskSubHeader {
+    background-color: #f9fafb;
+    /* background-color: brown; */
+    border: 1px solid #eaecf0;
+    padding: 12px 10px 0px 10px;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+.taskSubHeader .taskCurrentMenu{
+    border-radius: 0;
+}
+.taskSubHeader .taskCurrentMenu:hover{
+    background: none;
+}
+.taskSubHeader .taskCurrentMenu.active{
+    border-bottom: 2px solid black;
+    font-weight: bold;
+    color: black;
+}
+.rs-progress.rs-progress-line{
+    padding: 0 !important;
+}
+.rs-progress-line-inner{
+    height: auto !important;
+}

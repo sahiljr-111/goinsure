@@ -1,0 +1,145 @@
+/* carrer css */
+.carrerCardGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.carrerImage {
+  border-radius: 15px;
+  max-height: 200px;
+  max-width: 300px;
+  background-color: #f7f7fb;
+  padding: 15px 20px;
+}
+.carrerCard {
+  position: relative;
+  border-radius: 16px;
+  padding: 10px;
+  background-color: #fff;
+  cursor: pointer;
+  height: 100%;
+}
+
+.carrerCard .hoverEffect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  height: 100%;
+  width: 100%;
+  border-radius: 16px;
+  scale: 0;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+}
+.carrerCard:hover .hoverEffect {
+  scale: 1;
+}
+.carrerImage img {
+  max-height: 100%;
+  max-width: 100%;
+}
+.carrerText {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cardButtonGroup {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.cardButtonGroup .icon {
+  height: 40px;
+  width: 40px;
+}
+
+/* add carrer modal */
+.modalHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.carrerImageUpload .rs-uploader-trigger-btn {
+  height: 200px !important;
+}
+
+/* SEARCH BAR */
+.carrerSearchBar {
+  position: relative;
+  background-color: #fff;
+  border-radius: 8px;
+}
+.carrerSearchBar .searchInput {
+  padding-right: 40px;
+}
+.carrerSearchBar .searchButton {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 40px;
+  background-color: #343434;
+  color: #fff;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+/* matrics page */
+.productListing {
+  display: flex;
+  background-color: #fff;
+  padding: 12px;
+  border-radius: 16px;
+  overflow: auto;
+  gap: 10px;
+}
+.productListing .productMainList{
+  width: 5000px;
+}
+.productListing .product {
+  padding: 12px;
+  border-radius: 12px;
+  height: 170px;
+  width: 195px;
+}
+.productListing .productImg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #42707f1a;
+  border-radius: 12px;
+  width: 44px;
+  height: 44px;
+}
+.productListing .productNum {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 12px;
+  width: 44px;
+  height: 44px;
+}
+.productListing .productText {
+  margin-top: 16px;
+}
+.productNum span {
+  font-size: 20px;  
+}
+.originalProduct{
+  transition: all 0.3s;
+}
+.originalProduct:hover {
+  background-color: #eff6ff;
+  transition: all 0.3s;
+}
+/* carrer website */
+.carrerWebViewContainer{
+  height: 80vh;
+  width: 100%;
+}

@@ -1,0 +1,23 @@
+.policyCardGroup {
+  border-radius: 16px;
+  gap: 24px;
+}
+.policyCardGroup .policyCard {
+  padding: 20px 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.policyCardGroup .policyCardTitle {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  color: #64748b;
+  margin-bottom: 0;
+}
+.policyCardGroup .PolicyNumber {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: #000;
+}
