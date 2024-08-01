@@ -17,6 +17,7 @@ import TaskCreation from "./Pages/TaskCreation/TaskCreation";
 import TaskReportAdmin from "./Pages/TaskCreation/TaskReportAdmin";
 import PolicyMonthWise from "./Pages/TaskCreation/PolicyMonthWise";
 import AgenetPolicyDetails from "./Pages/TaskCreation/AgenetPolicyDetails";
+import Setting from "./Pages/TaskCreation/Setting";
 
 const App = () => {
   const location = useLocation();
@@ -49,6 +50,7 @@ const App = () => {
           <Route path="/task-report-admin" element={<TaskReportAdmin />} />
           <Route path="/policy-report-admin" element={<PolicyMonthWise />} />
           <Route path="/agent-policy-detail-admin" element={<AgenetPolicyDetails />} />
+          <Route path="/setting" element={<Setting />} />
         </Route>
       </Routes>
     </>

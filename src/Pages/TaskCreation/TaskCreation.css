@@ -17,6 +17,7 @@
 }
 .taskSubHeader .taskCurrentMenu{
     border-radius: 0;
+    border-bottom: 2px solid transparent;
 }
 .taskSubHeader .taskCurrentMenu:hover{
     background: none;
@@ -26,9 +27,36 @@
     font-weight: bold;
     color: black;
 }
+
+.haead-sub-menu .taskCurrentMenu.active {
+    border :2px solid black;
+    color: black;
+}
+.haead-sub-menu .taskCurrentMenu {
+    border :2px solid transparent;
+}
 .rs-progress.rs-progress-line{
     padding: 0 !important;
 }
 .rs-progress-line-inner{
     height: auto !important;
+}
+
+
+/* Rolemodel */
+.role-model .rs-modal-content{
+    width: 500px !important;
+}
+
+/* current call setting */
+ .form-group .rs-form-control,
+ .form-group .rs-form-control input{
+    width: 100% !important;
+}
+
+.rs-picker.rs-picker-select{
+    width: 100% !important;
+}
+.rs-picker.rs-picker-select .rs-picker-toggle{
+    border: 1px solid #d9d9d9 !important;
 }
