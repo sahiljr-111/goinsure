@@ -48,6 +48,9 @@
     width: 500px !important;
 }
 
+#user-chart .rs-modal-content{
+    width: 1000px !important;
+}
 /* current call setting */
  .form-group .rs-form-control,
  .form-group .rs-form-control input{

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { FaUserCog } from 'react-icons/fa';
 import { MdOutlineLock, MdOutlineLockOpen, MdWifiCalling3 } from 'react-icons/md';
 import { RiGlobalLine } from 'react-icons/ri';
@@ -12,6 +12,7 @@ import Banner from "../../assets/images/delete-icon.png"
 import { IoMdTimer } from 'react-icons/io';
 import { Col, Row } from 'react-bootstrap';
 import { TbFlag3Filled } from 'react-icons/tb';
+import Chart from 'chart.js/auto';
 
 const Setting = () => {
   const [currentTab, setCurrentTab] = useState(1);
@@ -26,7 +27,9 @@ const Setting = () => {
   const [callsetting, setCallSetting] = useState('');
   const [callpriority, setCallpriority] = useState('');
   const [purchaseNumber, setPurchaseNumber] = useState('');
-  console.log('->callsetting --->', callsetting.type);
+  const [viewNumberModel, setViewNumberModel] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [userChart, setViewUserChart] = useState(false);
   const max = 4;
   const data = ['USA', 'Bryan', 'Linda', 'Nancy', 'Lloyd', 'Alice', 'Julia', 'Albert'].map(
     item => ({ label: item, value: item })
@@ -119,47 +122,58 @@ const Setting = () => {
                             className="btn my-2 mx-2"
                             startIcon={<Add size="16" color="#fff" variant="Outline" />}
                           >
-                            Add Role
+                            New Role
                           </Button>
                         }
+
                       </div>
                     ) : currentTab == 2 ? (
-                      <div className="haead-sub-menu my-2 mx-2 d-flex justify-content-start align-items-center gap-2">
-                        <Button
-                          className={`taskCurrentMenu ${subCallTab === 1 &&
-                            "active"}`}
-                          onClick={() => setSubCallTab(1)}
-                        >
-                          Current Call Setting
-                        </Button>
-                        <Button
-                          className={`taskCurrentMenu ${subCallTab === 2 &&
-                            "active"}`}
-                          onClick={() => setSubCallTab(2)}
-                        >
-                          Speed Dial Numbers
-                        </Button>
-                        <Button
-                          className={`taskCurrentMenu ${subCallTab === 3 &&
-                            "active"}`}
-                          onClick={() => setSubCallTab(3)}
-                        >
-                          Call Priority
-                        </Button>
-                        <Button
-                          className={`taskCurrentMenu ${subCallTab === 4 &&
-                            "active"}`}
-                          onClick={() => setSubCallTab(4)}
-                        >
-                          Purchase Number
-                        </Button>
-                        <Button
-                          className={`taskCurrentMenu ${subCallTab === 5 &&
-                            "active"}`}
-                          onClick={() => setSubCallTab(5)}
-                        >
-                          Phone Number
-                        </Button>
+                      <div className='d-flex justify-content-between'>
+                        <div className="haead-sub-menu my-2 mx-2 d-flex justify-content-start align-items-center gap-2">
+                          <Button
+                            className={`taskCurrentMenu ${subCallTab === 1 &&
+                              "active"}`}
+                            onClick={() => setSubCallTab(1)}
+                          >
+                            Current Call Setting
+                          </Button>
+                          <Button
+                            className={`taskCurrentMenu ${subCallTab === 2 &&
+                              "active"}`}
+                            onClick={() => setSubCallTab(2)}
+                          >
+                            Speed Dial Numbers
+                          </Button>
+                          <Button
+                            className={`taskCurrentMenu ${subCallTab === 3 &&
+                              "active"}`}
+                            onClick={() => setSubCallTab(3)}
+                          >
+                            Call Priority
+                          </Button>
+                          <Button
+                            className={`taskCurrentMenu ${subCallTab === 4 &&
+                              "active"}`}
+                            onClick={() => setSubCallTab(4)}
+                          >
+                            Purchase Number
+                          </Button>
+                          <Button
+                            className={`taskCurrentMenu ${subCallTab === 5 &&
+                              "active"}`}
+                            onClick={() => setSubCallTab(5)}
+                          >
+                            Phone Number
+                          </Button>
+                        </div>
+                        {currentTab === 2 && subCallTab === 5 && phoneNumber === "phoneNumber" &&
+                          <Button
+                            onClick=""
+                            className="btn my-2 mx-2"
+                          >
+                            Purchase Number
+                          </Button>
+                        }
                       </div>
                     ) : (
                       <div className="haead-sub-menu my-2 mx-2 d-flex justify-content-start align-items-center gap-2">
@@ -810,7 +824,7 @@ const Setting = () => {
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <tr>
+                                      <tr onClick={() => setViewUserChart(true)}>
                                         <td>1</td>
                                         <td> John Doe </td>
                                         <td><TbFlag3Filled size={20} color='orange' /><span style={{ color: 'orange', margin: '0px 2px' }}>Urgent</span></td>
@@ -951,12 +965,128 @@ const Setting = () => {
                                   </Form.Group>
                                   <div className="form-btns d-flex gap-3 mt-4">
                                     <Button className="form-Save btn w-100 flex-grow-1 rs-btn rs-btn-default"
-                                      onClick={() => setPurchaseNumber('purchase')}
+                                      onClick={() => setViewNumberModel(true)}
                                     >
                                       Purchase Now
                                     </Button>
                                   </div>
                                 </Form>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className='user-statistics-table py-2 px-2'>
+                            <div className='d-flex align-items-center flex-column w-50 mx-auto'>
+                              <img src={Banner} className='mt-5' alt="Banner" width="40%" />
+                              <h1 className='my-2'>Connect Your twillio account to use this feature</h1>
+                              <Button
+                                onClick={() => setTwillioModel(true)}
+                                className="btn mt-3 mx-2"
+                              >
+                                Connect Now
+                              </Button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ) : currentTab === 2 && subCallTab === 5 ? (
+                      <div>
+                        {twillioModel && phoneNumber !== 'phoneNumber' ? (
+                          <div className='twillio-account d-flex justify-content-center align-items-center' style={{ height: '80vh' }}>
+                            <div className="connect-card shadow border rounded-4 p-5 text-center">
+                              <h2>Connect your twillio account</h2>
+                              <p className='text-muted'>Enter your Twillio information below to connect account</p>
+                              <div className="mt-4">
+                                <Form>
+                                  <Form.Group
+                                    controlId=""
+                                    className="form-group mb-0 w-100"
+                                  >
+                                    <h6 className='mx-2 text-start fw-semibold'>Twillio SID</h6>
+                                    <Form.Control
+                                      className="rounded-3 py-2 mx-0 my-1 mb-3 mw-100 border "
+                                      placeholder="Enter your Twillio SID"
+                                      name="globalsearch"
+                                    />
+                                    <h6 className='mx-2 text-start fw-semibold'>Twillio Key</h6>
+                                    <Form.Control
+                                      className="rounded-3 py-2 mx-0 my-1 mw-100 border "
+                                      placeholder="Enter your Twillio Key"
+                                      name="globalsearch"
+                                    />
+                                  </Form.Group>
+                                  <div className="form-btns d-flex gap-3 mt-4">
+                                    <Button className="form-Save btn w-100 flex-grow-1 rs-btn rs-btn-default"
+                                      onClick={() => setPhoneNumber('phoneNumber')}
+                                    >
+                                      Save
+                                    </Button>
+                                  </div>
+                                </Form>
+                              </div>
+                            </div>
+                          </div>
+                        ) : twillioModel && phoneNumber === 'phoneNumber' ? (
+                          <div className='call-statistics'>
+                            <div className='user-statistics-table px-3 py-2'>
+                              <h4>Agent Call Priority</h4>
+                              <div className="gsw-globel-table p-0 py-2">
+                                <div className="table-responsive mb-3 scrollbar">
+                                  <table className="table-box-main">
+                                    <thead>
+                                      <tr>
+                                        <th className="text-uppercase">#</th>
+                                        <th className="text-uppercase">Status</th>
+                                        <th className="text-uppercase">Number</th>
+                                        <th className="text-uppercase">State</th>
+                                        <th className="text-uppercase">Priority</th>
+                                        <th className="text-uppercase">Action</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td>1</td>
+                                        <td> John Doe </td>
+                                        <td><Badge className='py-2 px-3 rounded-pill' style={{ background: '#F6FFF9', border: '1px solid #bde0c9', color: 'green' }} content="Active" /></td>
+                                        <td>+7856450978</td>
+                                        <td>Arkansas</td>
+                                        <td><TbFlag3Filled size={20} color='orange' /><span style={{ color: 'orange', margin: '0px 2px' }}>Urgent</span></td>
+                                      </tr>
+                                      <tr>
+                                        <td>2</td>
+                                        <td> John Doe </td>
+                                        <td><Badge className='py-2 px-3 rounded-pill' style={{ background: '#F6FFF9', border: '1px solid #bde0c9', color: 'green' }} content="Active" /></td>
+                                        <td>+7856450978</td>
+                                        <td>Califonia</td>
+                                        <td><TbFlag3Filled size={20} color='red' /><span style={{ color: 'red', margin: '0px 2px' }}>High</span></td>
+                                      </tr>
+                                      <tr>
+                                        <td>3</td>
+                                        <td> John Doe </td>
+                                        <td><Badge className='py-2 px-3 rounded-pill' style={{ background: '#F6FFF9', border: '1px solid #bde0c9', color: 'green' }} content="Active" /></td>
+                                        <td>+7856450978</td>
+                                        <td>Colorado</td>
+                                        <td><TbFlag3Filled size={20} color='green' /><span style={{ color: 'green', margin: '0px 2px' }}>Medium</span></td>
+                                      </tr>
+                                      <tr>
+                                        <td>3</td>
+                                        <td> John Doe </td>
+                                        <td><Badge className='py-2 px-3 rounded-pill' style={{ background: '#F6FFF9', border: '1px solid #bde0c9', color: 'green' }} content="Active" /></td>
+                                        <td>+7856450978</td>
+                                        <td>Connecticut</td>
+                                        <td><TbFlag3Filled size={20} color='#42707f' /><span style={{ color: '#42707f', margin: '0px 2px' }}>Medium</span></td>
+                                      </tr>
+                                      <tr>
+                                        <td>4</td>
+                                        <td> John Doe </td>
+                                        <td><Badge className='py-2 px-3 rounded-pill' style={{ background: '#F6FFF9', border: '1px solid #bde0c9', color: 'green' }} content="Active" /></td>
+                                        <td>+7856450978</td>
+                                        <td>Massachusetts</td>
+                                        <td><TbFlag3Filled size={20} color='black' /><span style={{ color: 'black', margin: '0px 2px' }}>None</span></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -1028,6 +1158,49 @@ const Setting = () => {
         </Modal>
       }
 
+      {userChart && (
+        <Modal open={userChart}
+          className="role-model d-flex justify-content-center align-items-center w-auto"
+          id='user-chart'
+          onClose={() => setViewUserChart(false)}
+        >
+          <Modal.Header>
+            <Modal.Title className='border-bottom pb-3'>John Doe</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className="chart-section p-3">
+              <BarChartCard />
+              <p className="text-center pt-3">Total recieve call</p>
+            </div>
+          </Modal.Body>
+        </Modal>
+      )}
+
+      {viewNumberModel && (
+        <Modal open={viewNumberModel}
+          className="role-model d-flex justify-content-center align-items-center w-auto"
+          onClose={() => setViewNumberModel(false)}
+        >
+          <Modal.Header>
+            <Modal.Title className='border-bottom pb-3'>Confirm</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <h2>Are you sure want to purchase this number ?</h2>
+            <div className="form-btns d-flex gap-3 mt-4">
+              <Button
+                className="form-cancel btn w-100 flex-grow-1 rs-btn rs-btn-default"
+                onClick={() => setViewNumberModel(false)}
+              >
+                Cancel
+              </Button>
+              <Button className="form-Save btn w-100 flex-grow-1 rs-btn rs-btn-default">
+                Save
+              </Button>
+            </div>
+          </Modal.Body>
+        </Modal>
+      )}
+
       {addNewNumber && (
         <Modal open={addNewNumber}
           className="role-model d-flex justify-content-center align-items-center w-auto"
@@ -1058,7 +1231,7 @@ const Setting = () => {
               <div className="form-btns d-flex gap-3 mt-4">
                 <Button
                   className="form-cancel btn w-100 flex-grow-1 rs-btn rs-btn-default"
-                  onClick={() => setAddRoleModel(false)}
+                  onClick={() => setaddNewNumber(false)}
                 >
                   Cancel
                 </Button>
@@ -1075,5 +1248,71 @@ const Setting = () => {
 
   )
 }
+
+const BarChartCard = () => {
+  const chartRef = useRef(null);
+
+  useEffect(() => {
+    // Data for the bar chart
+    const data = {
+      labels: ['JAN 2024', 'FEB 2024', 'MAR 2024', 'APR 2024', 'MAY 2024', 'JUN 2024', 'JUL 2024', 'AUG 2024', 'SEP 2024', 'OCT 2024', 'NOV 2024', 'DEC 2024',],
+      datasets: [
+        {
+          label: 'Sales',
+          backgroundColor: 'lightgreen',
+          borderWidth: 0, // Remove the border from the bars
+          data: [93, 56, 92, 110, 74, 96, 112, 40, 110, 58, 84, 52],
+        },
+      ],
+    };
+
+    // Options for the bar chart
+    const options = {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false,
+        },
+        title: {
+          display: true,
+          // text: 'Sales Report',
+          fontSize: 20,
+        },
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            callback: function (value, index, values) {
+              return value; // Add percentage sign to y-axis values
+            }
+          }
+        },
+        x: {
+          grid: {
+            display: false,
+          },
+        },
+      },
+      elements: {
+        bar: {
+          borderRadius: 10, // Add border radius to the bars
+        },
+      },
+    };
+
+    // Create the chart instance
+    const myChart = new Chart(chartRef.current, {
+      type: 'bar',
+      data: data,
+      options: options,
+    });
+
+    // Clean up function
+    return () => myChart.destroy();
+  }, []);
+
+  return <canvas ref={chartRef} />;
+};
 
 export default Setting
